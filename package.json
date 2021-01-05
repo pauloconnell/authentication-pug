@@ -1,0 +1,46 @@
+{
+  "//1": "describes your app and its dependencies",
+  "//2": "https://docs.npmjs.com/files/package.json",
+  "//3": "updating this file will download and update your packages",
+  "name": "fcc-advanced-node-and-express",
+  "author": "Paul O'connell",
+  "version": "0.0.1",
+  "description": "authentication and login",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.16.1",
+    "cors": "^2.8.1",
+    "pug": "^3.0.0",
+    "passport": "^0.3.2",
+    "express-session": "^1.15.0",
+    "mongodb": "^3.5.9",
+    "passport-local": "^1.0.0",
+    "dotenv": "^8.2.0",
+    "node": "^14.5.0",
+    "mongoose": "^5.9.25",
+    "body-parser": "^1.19.0",
+    "shortid": "^2.2.15",
+    "connect-mongo": "^3.2.0",
+    "mongo-client": "^0.2.1",
+    "bcrypt": "^5.0.0"
+  },
+  "engines": {
+    "node": "^12.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://glitch.com/#!/project/welcome-project"
+  },
+  "keywords": [
+    "node",
+    "glitch",
+    "express",
+    "pug",
+    "passport",
+    "socketio"
+  ],
+  "license": "MIT"
+}

@@ -11,3 +11,92 @@ Authentication is the process or action of verifying the identity of a user or p
 The most common and easiest way to use authentication middleware for Node.js is [PassportJS](https://passportjs.org/). It is easy to learn, light-weight, and extremely flexible allowing for many strategies, which we will talk about in later challenges. We will also explore template engines, specifically [PugJS](https://pugjs.org/api/getting-started.html), and web sockets, [Socket.io](https://socket.io/). Web sockets allow for real time communication between all your clients and your server. Working on these challenges will involve writing your code on Repl.it using our starter project. After completing each challenge you can copy your public Repl.it url (the homepage of your Repl.it app) into the challenge screen to test it! Optionally, you may choose to write your project on another platform but it must be publicly visible for our testing.
 
 Start this project on Repl.it using this link or clone this repository on [GitHub](https://github.com/freeCodeCamp/boilerplate-advancednode)! If you use Repl.it, remember to save the link to your project somewhere safe.
+
+# Design Documentation :
+
+## Title and People
+
+### Author: Paul O'Connell
+Reviewer:
+Last Updated: Dec 28 2020
+
+## Overview
+
+App uses authentication to allow users to log in, and pug to render active content to routes
+
+## Goals and Non-Goals
+
+GOALS -  see readme,
+NON-GOALS- 
+-
+
+## Milestones
+
+Start Date:
+
+Milestone 1 —
+Milestone 2 -
+Milestone 3 -
+End Date: 
+Milestone 4 - Future project(non-goal) -add CSS and images to create look and feel of real app
+
+## Existing Solution/User Story
+
+See UserStories @ index.html
+Design patern here:
+Proposed Solution
+
+
+ Create new Thread:
+  POST=> api/threads/:board
+    index.html  user inputs newThread  into NEW THREAD form: POST=> api/threads/:board  which saves Thread
+    redirects to GET=> b/:board(NOT WITH /:id so it shows ALL Threads in this board)  which
+  =>Board.html will GET => api/threads/:board which sends back all threads on this board:(limited to 10 most recient)
+     From here, user can reply to any Thread on this board
+Report a thread
+  PUT=> /api/threads/{board}
+    call reportThread, which changes it's reported value to true
+
+
+Create a reply on a Thread:
+     board.html showing all(10 most recient) threads, user replies to any thread:
+  =>POST to api/replies/:board, which calls saveReply(replyWithThreadIdIncluded, done) and redirects to =>b:/:Board/:Id which redirects to=> thread.html
+     thread.html calls
+  GET => api/replies/:board which  sorts by date, and return 10 most recient threads in this board - limited to most recient three replies each
+      EITHER board.html OR thread.html can save a reply to thread
+  DELETE => calls deleteReply, which hits db to confirm password, then updates reply TEXT to be "deleted" as per specs
+Report a reply
+  PUT => /api/replies/{board}, which calls reportReply(thread_id, reply_id, done) hits db updates reported to True
+
+URL Querry=>  /api/replies/:board/?_id=xxx   ALL replies are sent back in JSON
+
+
+
+
+## Alternative Solutions
+
+Pros/Cons of Alternatives - also can we use 3rd party/open source solution?
+
+Testability, Monitoring and Alerting
+
+detail testing
+
+Cross-Team Impact
+
+negative consequences/security vulnerabilities - cost$$$, support burden?
+
+Open Questions
+
+Known Unknowns
+
+## Detailed Scoping and Timeline (Used by dev team during creation)
+
+how and when each section of project will be done -
+
+-Milestone 4 - Overview of all boards
+  on index page, show a list of links to each 'board'
+    -create function to access db, and create a list of unique board names with a link to that 'board'
+    -create component to house this list and include it on the index page and in Thread.html so it's easily accessable
+
+
+

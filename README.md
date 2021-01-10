@@ -44,31 +44,11 @@ Milestone 4 - Future project(non-goal) -add CSS and images to create look and fe
 
 See UserStories @ index.html
 Design patern here:
-Proposed Solution
+Proposed Solution:
 
 
- Create new Thread:
-  POST=> api/threads/:board
-    index.html  user inputs newThread  into NEW THREAD form: POST=> api/threads/:board  which saves Thread
-    redirects to GET=> b/:board(NOT WITH /:id so it shows ALL Threads in this board)  which
-  =>Board.html will GET => api/threads/:board which sends back all threads on this board:(limited to 10 most recient)
-     From here, user can reply to any Thread on this board
-Report a thread
-  PUT=> /api/threads/{board}
-    call reportThread, which changes it's reported value to true
 
 
-Create a reply on a Thread:
-     board.html showing all(10 most recient) threads, user replies to any thread:
-  =>POST to api/replies/:board, which calls saveReply(replyWithThreadIdIncluded, done) and redirects to =>b:/:Board/:Id which redirects to=> thread.html
-     thread.html calls
-  GET => api/replies/:board which  sorts by date, and return 10 most recient threads in this board - limited to most recient three replies each
-      EITHER board.html OR thread.html can save a reply to thread
-  DELETE => calls deleteReply, which hits db to confirm password, then updates reply TEXT to be "deleted" as per specs
-Report a reply
-  PUT => /api/replies/{board}, which calls reportReply(thread_id, reply_id, done) hits db updates reported to True
-
-URL Querry=>  /api/replies/:board/?_id=xxx   ALL replies are sent back in JSON
 
 
 

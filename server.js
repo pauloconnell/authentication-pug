@@ -139,24 +139,13 @@ mongo.connect(
             req.session.username = req.user.username;
             console.log("user found? " + JSON.stringify(req.user));
             res.redirect("/profile");
-            //  res.send("hi");
           }
         );
 
       app.route("/profile").get(ensureAuthenticated, (req, res) => {
         const username = req.session.username;
         delete req.session.username;
-        
         res.render('/app/views/pug/profile', {username:req.user.username, title:"Profile"});
-        
-//        req.logIn(req.user, err => {
-//          err
-//            ? next(err)
-//            : res.render(process.cwd() + "/views/pug/profile", {
- //               title: "Profile Home Page",
- //               username: req.user
-  //            });
-  //      });
       });
 
       

@@ -17,8 +17,9 @@ Start this project on Repl.it using this link or clone this repository on [GitHu
 ## Title and People
 
 ### Author: Paul O'Connell
+
 Reviewer:
-Last Updated: Dec 28 2020
+Last Updated: Jan 11 2021
 
 ## Overview
 
@@ -26,18 +27,17 @@ App uses authentication to allow users to log in, and pug to render active conte
 
 ## Goals and Non-Goals
 
-GOALS -  see readme,
-NON-GOALS- 
--
+GOALS - see readme,
+NON-GOALS- -
 
 ## Milestones
 
 Start Date:
 
-Milestone 1 —
-Milestone 2 -
-Milestone 3 -
-End Date: 
+Milestone 1 — DONE Complete and pass tests
+Milestone 2 - update error message on failed login a)send new variable or b) save variable in session CURRENT - error message not rendering
+Milestone 3 - update CSS to upgrade look
+End Date:
 Milestone 4 - Future project(non-goal) -add CSS and images to create look and feel of real app
 
 ## Existing Solution/User Story
@@ -45,13 +45,6 @@ Milestone 4 - Future project(non-goal) -add CSS and images to create look and fe
 See UserStories @ index.html
 Design patern here:
 Proposed Solution:
-
-
-
-
-
-
-
 
 ## Alternative Solutions
 
@@ -63,7 +56,7 @@ detail testing
 
 Cross-Team Impact
 
-negative consequences/security vulnerabilities - cost$$$, support burden?
+negative consequences/security vulnerabilities - cost\$\$\$, support burden?
 
 Open Questions
 
@@ -74,9 +67,6 @@ Known Unknowns
 how and when each section of project will be done -
 
 -Milestone 4 - Overview of all boards
-  on index page, show a list of links to each 'board'
-    -create function to access db, and create a list of unique board names with a link to that 'board'
-    -create component to house this list and include it on the index page and in Thread.html so it's easily accessable
-
-
-
+on index page, show a list of links to each 'board'
+-create function to access db, and create a list of unique board names with a link to that 'board'
+-create component to house this list and include it on the index page and in Thread.html so it's easily accessable

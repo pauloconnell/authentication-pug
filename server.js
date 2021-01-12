@@ -5,7 +5,7 @@ const fccTesting = require("./freeCodeCamp/fcctesting.js");
 const pug = require("pug");
 const bodyParser = require("body-parser");
 const session = require("express-session");
-const mongo = require("mongodb").MongoClient;
+const mongo = require("mongodb").MongoClient; // note this challenge requires mongo and NOT mongoose
 const cors = require("cors");
 
 const passport = require("passport");
@@ -63,24 +63,33 @@ if (process.env.ENABLE_DELAYS)
     }
   });
 
-// connect to mongoDB so we have access for all of our routes
+// connect to mongoDB so we have access for all of our routes NOTE: Not using Mongoose => client.db("pug")
 mongo.connect(
   process.env.DATABASE,
   { useUnifiedTopology: true },
   (err, client) => {
-    var db = client.db("pug");
+    var db = client.db("pug"); // db is a function in mongo client that will connect us to our 'pug' dataBase (which we can call .collection on later)
     if (err) {
       console.log(db + "Database error: " + err);
       app.route("/").get((req, res) => {
         res.render("pug", { title: err, message: "Login Failed, try again" });
       });
     } else {
+      app.listen(process.env.PORT || 3000, () => {
+        // only have app listening IF we connect to DB
+        console.log("Listening on port " + process.env.PORT);
+      });
+
       console.log("Successful database connection");
+      // save user detail to session
       passport.serializeUser((user, done) => {
+        // user object is stored(retrieved) on MongoDB
         done(null, user._id);
       });
+      //retrieve user details from cookie
       passport.deserializeUser((id, done) => {
         db.collection("users").findOne(
+          // using client/db to access collection in db 'pug'
           { _id: new ObjectID(id) },
           (err, user) => {
             done(null, user);
@@ -111,6 +120,7 @@ mongo.connect(
         })
       );
       var login_fail = false;
+      // our middleware function which will ensure req.isAuth is true, or we redirect to "/"
       function ensureAuthenticated(req, res, next) {
         if (req.isAuthenticated()) {
           return next();
@@ -126,6 +136,7 @@ mongo.connect(
 
       app.route("/").get((req, res) => {
         //Change the response to render the Pug template
+        console.log("session variable assigned is ", req.session.login_fail);
         if (req.session.login_fail) {
           res.render(process.cwd() + "/views/pug/index", {
             title: "Home Page",
@@ -137,35 +148,29 @@ mongo.connect(
           res.render(process.cwd() + "/views/pug/index", {
             title: "Home Page",
             message: "login",
-            login_fail: login_fail,
-            message_fail: "login failed, please try again",
             showLogin: true,
             showRegistration: true
           });
         }
       });
 
-      app
-        .route("/login")
-        .post(
-          passport.authenticate("local", {
-            failureRedirect: "/",
-            message_fail: "login failed, please try again",
-            showLogin: true,
-            showRegistration: true
-          }),
-          (req, res) => {
-            console.log("post to /login with " + JSON.stringify(req.body));
-            // might need to store user on 'session' variable? var req.session.user=req.user;
-            req.session.username = req.user.username;
-            console.log("user found? " + JSON.stringify(req.user));
-            res.redirect("/profile");
-          }
-        );
+      app.route("/login").post(
+        passport.authenticate("local", {
+          // "local" is default name given to local strategy
+          failureRedirect: "/",
+          message_fail: "login failed, please try again",
+          showLogin: true,
+          showRegistration: true
+        }),
+        (req, res) => {
+          console.log("post to /login with " + JSON.stringify(req.body));
+
+          console.log("user found? " + JSON.stringify(req.user));
+          res.redirect("/profile");
+        }
+      );
 
       app.route("/profile").get(ensureAuthenticated, (req, res) => {
-        const username = req.session.username;
-        delete req.session.username;
         res.render("/app/views/pug/profile", {
           username: req.user.username,
           title: "Profile"
@@ -235,7 +240,3 @@ mongo.connect(
 //     res.render('pug', { title: e, message: 'Unable to login' });
 //   });
 // });
-
-app.listen(process.env.PORT || 3000, () => {
-  console.log("Listening on port " + process.env.PORT);
-});

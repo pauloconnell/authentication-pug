@@ -81,7 +81,8 @@ mongo.connect(
       });
 
       console.log("Successful database connection");
-      // save user detail to session
+      //these 2 methods are auto called by passport:
+      // serialize and save user_id detail to session
       passport.serializeUser((user, done) => {
         // user object is stored(retrieved) on MongoDB
         done(null, user._id);
@@ -113,7 +114,9 @@ mongo.connect(
             if (password !== user.password) {
               return done(null, false);
             } else {
-              console.log("successfull login of user: " + JSON.stringify(user.username));
+              console.log(
+                "successfull login of user: " + JSON.stringify(user.username)
+              );
               return done(null, user);
             }
           });
@@ -206,7 +209,7 @@ mongo.connect(
                     if (err) {
                       res.redirect("/");
                     } else {
-                      req.session.username = user.username;
+                      // username available under req.user.username  req.session.username = user.username;
                       next(null, user);
                     }
                   }

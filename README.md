@@ -46,11 +46,15 @@ See UserStories @ index.html
 
 # Design patern here:
 ```
-Body-parser gets fields for name and password from form submit available on req.name ect
-Session - store user info on secure cookie
-Passport - Obviously used for authentication strategy - local strategy used w/mongodb, de&serialize user details to cookie/req.user allows login, ensure logged in, and logout
+Body-parser gets fields for name and password from form submit makes them available on req.body.name ect
+Session - store (serialize) user_id onto secure cookie * browser specific - cookie save on browser, once browser is closed, cookie destroyed.
+Passport - authentication- local strategy used w/mongodb, de&serialize user details to cookie/req.user allows login, ensureAuth, and logout
 MONGO DB - connection is made at start of API routes in server.js, and all routes are included in that connection
-Login - Post=>/Login req.body has name and password, so Passport middleware uses our 'local' strategy to hit db for name, if we get a doc, ensure password is correct we get our doc
+Register - POST => /register req.body has name and password,
+              hits db to check if name exists already redirect to / if exists already
+              saves details to db which gives _id
+Login - Post=>/Login req.body has name and password, so Passport.authenticate (or req.login()) middleware takes req.body.name/password and passes them to our 'local' strategy 
+          which: hit db for name, if we get a doc, ensure password is correct we get our doc
         The user doc is now serialized and available to any of our routes on req.user        
 Middleware - we make ensureAuthenticated() middleWare Function to be added to profile route to ensure current req.user / is logged in
 Profile - loads profile page, pass variables from req.user to pug to render (ie. req.user.username)
@@ -61,11 +65,11 @@ Logout - simple handled by passport with req.logout();
 
 Pros/Cons of Alternatives - also can we use 3rd party/open source solution?
 
-Testability, Monitoring and Alerting
+Testability, Monitoring and Alerting:
 
-detail testing
+detail: testing
 
-Cross-Team Impact
+Cross-Team Impact:
 
 negative consequences/security vulnerabilities - cost\$\$\$, support burden?
 
@@ -74,10 +78,5 @@ Open Questions
 Known Unknowns
 
 ## Detailed Scoping and Timeline (Used by dev team during creation)
-
-how and when each section of project will be done -
-
--Milestone 4 - Overview of all boards
-on index page, show a list of links to each 'board'
--create function to access db, and create a list of unique board names with a link to that 'board'
--create component to house this list and include it on the index page and in Thread.html so it's easily accessable
+Great resource for Passport Documentation:
+https://github.com/jwalton/passport-api-docs#passportinitialize

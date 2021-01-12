@@ -113,7 +113,7 @@ mongo.connect(
             if (password !== user.password) {
               return done(null, false);
             } else {
-              console.log("successfull login of user: " + JSON.stringify(user));
+              console.log("successfull login of user: " + JSON.stringify(user.username));
               return done(null, user);
             }
           });
@@ -165,7 +165,7 @@ mongo.connect(
         (req, res) => {
           console.log("post to /login with " + JSON.stringify(req.body));
 
-          console.log("user found? " + JSON.stringify(req.user));
+          console.log("user found? " + JSON.stringify(req.user.username));
           res.redirect("/profile");
         }
       );

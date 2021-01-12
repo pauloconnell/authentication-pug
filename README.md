@@ -35,7 +35,7 @@ NON-GOALS- anything beyond simply login access secure profile and logout
 Start Date:
 
 Milestone 1 — DONE Complete and pass tests
-Milestone 2 - update error message on failed login a)send failure to new page /fail 
+Milestone 2 - update error message on failed login 
 Milestone 3 - update CSS to upgrade look
 End Date:
 Milestone 4 - Future project(non-goal) -add CSS and images to create look and feel of real app
@@ -43,17 +43,19 @@ Milestone 4 - Future project(non-goal) -add CSS and images to create look and fe
 ## Existing Solution/User Story
 
 See UserStories @ index.html
-Design patern here:
 
+# Design patern here:
+```
 Body-parser gets fields for name and password from form submit available on req.name ect
 Session - store user info on secure cookie
-
+Passport - Obviously used for authentication strategy - local strategy used w/mongodb, de&serialize user details to cookie/req.user allows login, ensure logged in, and logout
 MONGO DB - connection is made at start of API routes in server.js, and all routes are included in that connection
-
-Login - 
-
-
-Proposed Solution:
+Login - Post=>/Login req.body has name and password, so Passport middleware uses our 'local' strategy to hit db for name, if we get a doc, ensure password is correct we get our doc
+        The user doc is now serialized and available to any of our routes on req.user        
+Middleware - we make ensureAuthenticated() middleWare Function to be added to profile route to ensure current req.user / is logged in
+Profile - loads profile page, pass variables from req.user to pug to render (ie. req.user.username)
+Logout - simple handled by passport with req.logout();
+```
 
 ## Alternative Solutions
 

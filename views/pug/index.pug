@@ -5,8 +5,13 @@ html
     meta(charset='utf-8')
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
     meta(name='viewport', content='width=device-width, initial-scale=1')
-    link(rel='stylesheet', href='/public/style.css')
-  body
+    link(rel="stylesheet", href="../public/style.css")
+  body.main
+    style.
+      body{
+      background-image:url(https://res.cloudinary.com/pollie/image/upload/v1610573936/WhiteRock_u6zl0k.png);
+      background-size:100%;
+      }
     h1.border.center #{title} 
     h2.center#pug-success-message
       | Looks like this page is being rendered from Pug into HTML!

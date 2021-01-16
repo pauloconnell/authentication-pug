@@ -72,7 +72,7 @@ mongo.connect(
     if (err) {
       console.log(db + "Database error: " + err);
       app.route("/").get((req, res) => {
-        res.render("pug", { title: err, message: "Login Failed, try again" });
+        res.render("pug", { title: err, message: "DB failed to connect, try again" });
       });
     } else {
       app.listen(process.env.PORT || 3000, () => {
@@ -150,7 +150,7 @@ mongo.connect(
         } else {
           res.render(process.cwd() + "/views/pug/index", {
             title: "Home Page",
-            message: "login",
+            message: "Please login in the form below",
             showLogin: true,
             showRegistration: true
           });
@@ -161,7 +161,7 @@ mongo.connect(
         passport.authenticate("local", {
           // "local" is default name given to local strategy
           failureRedirect: "/",
-          message_fail: "login failed, please try again",
+          message_fail: "Login failed, please try again",
           showLogin: true,
           showRegistration: true
         }),

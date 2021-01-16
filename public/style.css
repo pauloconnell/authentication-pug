@@ -1,6 +1,6 @@
 body {
-  background-image:url(https://res.cloudinary.com/pollie/image/upload/v1606077858/backgroundStocks_qvbkuh.jpg);
-  background-color:grey;  
+  background-image: url(https://res.cloudinary.com/pollie/image/upload/v1606077858/backgroundStocks_qvbkuh.jpg);
+  
 }
 
 .border {
@@ -16,7 +16,8 @@ body {
 }
 
 .main {
-  background-color:red;
+  background-color: red;
 }
+
 #welcome {
 }
